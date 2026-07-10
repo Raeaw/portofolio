@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background-color: #12161C;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #E8E6E1;
+}
+
+::selection {
+  background: #F0B429;
+  color: #12161C;
+}
+
+:focus-visible {
+  outline: 2px solid #5EEAD4;
+  outline-offset: 3px;
+}
+
+/* subtle blueprint grid backdrop */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(94, 234, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 234, 212, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
