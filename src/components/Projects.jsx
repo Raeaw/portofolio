@@ -11,7 +11,7 @@ const projects = [
       'Built secure authentication flows supporting local JWT strategies and Google OAuth 2.0 integration.',
       'Applied global rate limiting at the gateway layer using express-rate-limit to prevent endpoint abuse.',
     ],
-    link: 'https://github.com/Raeaw',
+    link: 'https://github.com/Raeaw/uts-pplos-b-2410511086',
   },
   {
     name: 'CakeStore',
@@ -23,7 +23,7 @@ const projects = [
       'Implemented secure user authentication using BCrypt for localized password hashing.',
       'Integrated role-based access control with an admin dashboard for product creation, image uploads, and order status updates.',
     ],
-    link: 'https://github.com/Raeaw',
+    link: 'https://github.com/Raeaw/KueWeh',
   },
 ]
 
