@@ -1,3 +1,5 @@
+import { MailIcon, GithubIcon, LinkedinIcon } from "./Icons.jsx";
+
 export default function Hero() {
 	return (
 		<section
@@ -24,11 +26,12 @@ export default function Hero() {
 					APIs, and the occasional Android app that has to survive real users.
 				</p>
 
-				<div className="mt-8 flex flex-wrap gap-4 font-mono text-xs text-muted">
+				<div className="mt-8 flex flex-wrap items-center gap-5 font-mono text-xs text-muted">
 					<a
 						href="mailto:raffi.darrell.f@gmail.com"
-						className="hover:text-signal transition-colors"
+						className="flex items-center gap-2 hover:text-signal transition-colors"
 					>
+						<MailIcon className="w-4 h-4" />
 						raffi.darrell.f@gmail.com
 					</a>
 					<span className="text-line">|</span>
@@ -36,8 +39,9 @@ export default function Hero() {
 						href="https://github.com/Raeaw"
 						target="_blank"
 						rel="noreferrer"
-						className="hover:text-signal transition-colors"
+						className="flex items-center gap-2 hover:text-signal transition-colors"
 					>
+						<GithubIcon className="w-4 h-4" />
 						github.com/Raeaw
 					</a>
 					<span className="text-line">|</span>
@@ -45,8 +49,9 @@ export default function Hero() {
 						href="https://linkedin.com/in/raffidarrell"
 						target="_blank"
 						rel="noreferrer"
-						className="hover:text-signal transition-colors"
+						className="flex items-center gap-2 hover:text-signal transition-colors"
 					>
+						<LinkedinIcon className="w-4 h-4" />
 						linkedin.com/in/raffidarrell
 					</a>
 				</div>
