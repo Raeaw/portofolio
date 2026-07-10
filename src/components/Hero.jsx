@@ -24,27 +24,6 @@ export default function Hero() {
 					APIs, and the occasional Android app that has to survive real users.
 				</p>
 
-				{/* signature: request routing diagram */}
-				<div className="border border-line rounded-lg bg-surface/60 p-5 font-mono text-xs sm:text-sm overflow-x-auto">
-					<div className="flex items-center gap-3 whitespace-nowrap min-w-max">
-						<Node label="CLIENT" sub="you" color="text-muted" />
-						<Arrow />
-						<Node
-							label="GATEWAY"
-							sub="raffi.darrell"
-							color="text-signal"
-							active
-						/>
-						<Arrow />
-						<div className="flex flex-col gap-2">
-							<Route label="Education" />
-							<Route label="Experience" />
-							<Route label="Projects" />
-							<Route label="Skills" />
-						</div>
-					</div>
-				</div>
-
 				<div className="mt-8 flex flex-wrap gap-4 font-mono text-xs text-muted">
 					<a
 						href="mailto:raffi.darrell.f@gmail.com"
@@ -73,29 +52,5 @@ export default function Hero() {
 				</div>
 			</div>
 		</section>
-	);
-}
-
-function Node({ label, sub, color, active }) {
-	return (
-		<div
-			className={`border rounded-md px-3 py-2 text-center ${active ? "border-signal bg-signal/10" : "border-line bg-surface2"}`}
-		>
-			<div className={`${color} font-semibold`}>{label}</div>
-			<div className="text-muted text-[10px]">{sub}</div>
-		</div>
-	);
-}
-
-function Arrow() {
-	return <div className="text-line select-none">──▶</div>;
-}
-
-function Route({ label }) {
-	return (
-		<div className="flex items-center gap-2">
-			<span className="w-1.5 h-1.5 rounded-full bg-route" />
-			<span className="text-text">{label}</span>
-		</div>
 	);
 }
