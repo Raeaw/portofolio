@@ -17,7 +17,7 @@ export default function Hero() {
 				</h1>
 
 				<p className="max-w-xl text-muted text-base sm:text-lg mb-10 leading-relaxed">
-					Software Engineering student who routes ideas into working systems —
+					Software Engineering student who routes ideas into working systems -
 					from <span className="text-route">auth</span> to{" "}
 					<span className="text-route">database</span> to{" "}
 					<span className="text-route">UI</span>. I build backend services,
