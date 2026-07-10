@@ -4,7 +4,7 @@ export default function Contact() {
 	return (
 		<section id="contact" className="py-24 px-6">
 			<div className="max-w-5xl mx-auto text-center">
-				<div className="font-mono text-xs text-route mb-3">POST /contact</div>
+				<div className="font-mono text-xs text-route mb-3">contact</div>
 				<h2 className="font-mono font-bold text-2xl sm:text-3xl text-text mb-4">
 					Let's build something.
 				</h2>
