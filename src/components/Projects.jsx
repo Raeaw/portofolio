@@ -26,7 +26,7 @@ const projects = [
 		link: "https://github.com/Raeaw/KueWeh",
 	},
 	{
-		name: "Chrono Aegis",
+		name: "Game Project: Chrono Aegis",
 		subtitle: "2D Survival Roguelite Game — Unity",
 		stack: ["Unity", "C#", "URP 2D", "Input System"],
 		points: [
@@ -37,6 +37,19 @@ const projects = [
 		],
 		link: "https://raeaw.itch.io/chorono-aegis",
 		secondaryLink: "https://github.com/Raeaw/Chrono_Aegis",
+	},
+	{
+		name: "JobRadar",
+		subtitle: "Job Aggregator — Data Pipeline & CI/CD Automation",
+		stack: ["Python", "PostgreSQL", "GitHub Actions", "Next.js"],
+		points: [
+			"Built a multi-source data pipeline that scrapes and normalizes job listings from several external sources (job APIs, Algolia search, RSS feeds) into a consistent schema before loading into PostgreSQL (Neon).",
+			"Designed the normalizer and db_manager layers to clean, deduplicate, and standardize inconsistent fields such as salary, experience range, and skills across sources.",
+			"Configured a scheduled GitHub Actions workflow to run the scraping pipeline automatically via cron, with support for manual triggers and push-based runs on the data branch.",
+			"Managed pipeline secrets and environment configuration securely through GitHub Actions secrets for automated, unattended execution.",
+		],
+		link: "https://jobsradars.vercel.app/",
+		secondaryLink: "https://github.com/anggasspm/job-radar",
 	},
 ];
 
