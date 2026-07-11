@@ -38,14 +38,20 @@ const groups = [
 ];
 
 const certifications = [
-	{ name: "Frontend Bootcamp by KSM Cyber Security", date: "August 2025" },
+	{
+		name: "Frontend Bootcamp by KSM Cyber Security",
+		date: "August 2025",
+		link: "",
+	},
 	{
 		name: "Code Generation and Optimization Using IBM Granite",
 		date: "October 2025",
+		link: "",
 	},
 	{
 		name: "Certificate of Active Participation: Game Development",
 		date: "December 2025",
+		link: "",
 	},
 ];
 
@@ -81,14 +87,23 @@ export default function Skills() {
 						</div>
 						<ul className="space-y-3">
 							{certifications.map((c) => (
-								<li
-									key={c.name}
-									className="border border-line rounded-lg bg-surface/70 p-4"
-								>
-									<div className="text-sm text-text">{c.name}</div>
-									<div className="font-mono text-[11px] text-muted mt-1">
-										{c.date}
-									</div>
+								<li key={c.name}>
+									<a
+										href={c.link}
+										target="_blank"
+										rel="noreferrer"
+										className="group flex items-center justify-between gap-4 border border-line rounded-lg bg-surface/70 p-4 hover:border-signal/50 transition-colors"
+									>
+										<div>
+											<div className="text-sm text-text">{c.name}</div>
+											<div className="font-mono text-[11px] text-muted mt-1">
+												{c.date}
+											</div>
+										</div>
+										<span className="font-mono text-muted group-hover:text-signal transition-colors">
+											↗
+										</span>
+									</a>
 								</li>
 							))}
 						</ul>
