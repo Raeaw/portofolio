@@ -1,4 +1,5 @@
 import { MailIcon, GithubIcon, LinkedinIcon } from "./Icons.jsx";
+import Reveal from "./Reveal.jsx";
 
 export default function Hero() {
 	return (
@@ -7,54 +8,62 @@ export default function Hero() {
 			className="grid-bg pt-32 pb-24 px-6 border-b border-line relative overflow-hidden"
 		>
 			<div className="max-w-5xl mx-auto">
-				<div className="flex items-center gap-2 font-mono text-xs text-route mb-6">
-					<span className="w-2 h-2 rounded-full bg-route animate-pulse" />
-					STATUS: available for internship / collab
-				</div>
+				<Reveal>
+					<div className="flex items-center gap-2 font-mono text-xs text-route mb-6">
+						<span className="w-2 h-2 rounded-full bg-route animate-pulse" />
+						STATUS: available for internship / collab
+					</div>
+				</Reveal>
 
-				<h1 className="font-mono font-bold text-4xl sm:text-6xl leading-[1.1] text-text mb-6">
-					Raffi Darrell
-					<br />
-					Firmansyah
-				</h1>
+				<Reveal delay={100}>
+					<h1 className="font-mono font-bold text-4xl sm:text-6xl leading-[1.1] text-text mb-6">
+						Raffi Darrell
+						<br />
+						Firmansyah
+					</h1>
+				</Reveal>
 
-				<p className="max-w-xl text-muted text-base sm:text-lg mb-10 leading-relaxed">
-					Software Engineering student who routes ideas into working systems -
-					from <span className="text-route">auth</span> to{" "}
-					<span className="text-route">database</span> to{" "}
-					<span className="text-route">UI</span>. I build backend services,
-					APIs, and the occasional Android app that has to survive real users.
-				</p>
+				<Reveal delay={200}>
+					<p className="max-w-xl text-muted text-base sm:text-lg mb-10 leading-relaxed">
+						Software Engineering student who routes ideas into working systems —
+						from <span className="text-route">auth</span> to{" "}
+						<span className="text-route">database</span> to{" "}
+						<span className="text-route">UI</span>. I build backend services,
+						APIs, and the occasional Android app that has to survive real users.
+					</p>
+				</Reveal>
 
-				<div className="mt-8 flex flex-wrap items-center gap-5 font-mono text-xs text-muted">
-					<a
-						href="mailto:raffi.darrell.f@gmail.com"
-						className="flex items-center gap-2 hover:text-signal transition-colors"
-					>
-						<MailIcon className="w-4 h-4" />
-						raffi.darrell.f@gmail.com
-					</a>
-					<span className="text-line">|</span>
-					<a
-						href="https://github.com/Raeaw"
-						target="_blank"
-						rel="noreferrer"
-						className="flex items-center gap-2 hover:text-signal transition-colors"
-					>
-						<GithubIcon className="w-4 h-4" />
-						github.com/Raeaw
-					</a>
-					<span className="text-line">|</span>
-					<a
-						href="https://linkedin.com/in/raffidarrell"
-						target="_blank"
-						rel="noreferrer"
-						className="flex items-center gap-2 hover:text-signal transition-colors"
-					>
-						<LinkedinIcon className="w-4 h-4" />
-						linkedin.com/in/raffidarrell
-					</a>
-				</div>
+				<Reveal delay={300}>
+					<div className="mt-8 flex flex-wrap items-center gap-5 font-mono text-xs text-muted">
+						<a
+							href="mailto:raffi.darrell.f@gmail.com"
+							className="flex items-center gap-2 hover:text-signal transition-colors"
+						>
+							<MailIcon className="w-4 h-4" />
+							raffi.darrell.f@gmail.com
+						</a>
+						<span className="text-line">|</span>
+						<a
+							href="https://github.com/Raeaw"
+							target="_blank"
+							rel="noreferrer"
+							className="flex items-center gap-2 hover:text-signal transition-colors"
+						>
+							<GithubIcon className="w-4 h-4" />
+							github.com/Raeaw
+						</a>
+						<span className="text-line">|</span>
+						<a
+							href="https://linkedin.com/in/raffidarrell"
+							target="_blank"
+							rel="noreferrer"
+							className="flex items-center gap-2 hover:text-signal transition-colors"
+						>
+							<LinkedinIcon className="w-4 h-4" />
+							linkedin.com/in/raffidarrell
+						</a>
+					</div>
+				</Reveal>
 			</div>
 		</section>
 	);

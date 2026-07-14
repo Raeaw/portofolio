@@ -1,4 +1,5 @@
 import SectionHeader from "./SectionHeader.jsx";
+import Reveal from "./Reveal.jsx";
 
 const projects = [
 	{
@@ -26,7 +27,7 @@ const projects = [
 		link: "https://github.com/Raeaw/KueWeh",
 	},
 	{
-		name: "Game Project: Chrono Aegis",
+		name: "Chrono Aegis",
 		subtitle: "2D Survival Roguelite Game — Unity",
 		stack: ["Unity", "C#", "URP 2D", "Input System"],
 		points: [
@@ -41,15 +42,14 @@ const projects = [
 	{
 		name: "JobRadar",
 		subtitle: "Job Aggregator — Data Pipeline & CI/CD Automation",
-		stack: ["Python", "PostgreSQL", "GitHub Actions", "Next.js"],
+		stack: ["Python", "PostgreSQL", "GitHub Actions", "Go", "Next.js"],
 		points: [
 			"Built a multi-source data pipeline that scrapes and normalizes job listings from several external sources (job APIs, Algolia search, RSS feeds) into a consistent schema before loading into PostgreSQL (Neon).",
 			"Designed the normalizer and db_manager layers to clean, deduplicate, and standardize inconsistent fields such as salary, experience range, and skills across sources.",
 			"Configured a scheduled GitHub Actions workflow to run the scraping pipeline automatically via cron, with support for manual triggers and push-based runs on the data branch.",
-			"Managed pipeline secrets and environment configuration securely through GitHub Actions secrets for automated, unattended execution.",
+			"Managed pipeline secrets and environment configuration (DATABASE_URL) securely through GitHub Actions secrets for automated, unattended execution.",
 		],
-		link: "https://jobsradars.vercel.app/",
-		secondaryLink: "https://github.com/anggasspm/job-radar",
+		link: "https://github.com/anggasspm/job-radar",
 	},
 ];
 
@@ -57,53 +57,58 @@ export default function Projects() {
 	return (
 		<section id="projects" className="py-24 px-6 border-b border-line">
 			<div className="max-w-5xl mx-auto">
-				<SectionHeader eyebrow="03" title="Projects" />
+				<Reveal>
+					<SectionHeader eyebrow="03" title="Projects" />
+				</Reveal>
 				<div className="grid md:grid-cols-2 gap-6">
-					{projects.map((p) => (
-						<a
-							key={p.name}
-							href={p.link}
-							target="_blank"
-							rel="noreferrer"
-							className="group border border-line rounded-lg bg-surface/70 p-6 hover:border-signal/50 transition-colors flex flex-col"
-						>
-							<div className="flex items-center justify-between mb-1">
-								<h3 className="text-text font-semibold text-lg">{p.name}</h3>
-								<span className="font-mono text-muted group-hover:text-signal transition-colors">
-									↗
-								</span>
-							</div>
-							<p className="font-mono text-xs text-route mb-4">{p.subtitle}</p>
-							<ul className="space-y-2 mb-5 flex-1">
-								{p.points.map((pt, i) => (
-									<li key={i} className="text-sm text-muted flex gap-3">
-										<span className="text-line font-mono select-none">·</span>
-										<span>{pt}</span>
-									</li>
-								))}
-							</ul>
-							<div className="flex flex-wrap gap-2 mb-4">
-								{p.stack.map((s) => (
-									<span
-										key={s}
-										className="font-mono text-[10px] px-2 py-1 border border-line rounded text-muted bg-surface2"
-									>
-										{s}
+					{projects.map((p, idx) => (
+						<Reveal key={p.name} delay={idx * 90}>
+							<a
+								href={p.link}
+								target="_blank"
+								rel="noreferrer"
+								className="group border border-line rounded-lg bg-surface/70 p-6 hover:border-signal/50 transition-colors flex flex-col h-full"
+							>
+								<div className="flex items-center justify-between mb-1">
+									<h3 className="text-text font-semibold text-lg">{p.name}</h3>
+									<span className="font-mono text-muted group-hover:text-signal transition-colors">
+										↗
 									</span>
-								))}
-							</div>
-							{p.secondaryLink && (
-								<a
-									href={p.secondaryLink}
-									target="_blank"
-									rel="noreferrer"
-									onClick={(e) => e.stopPropagation()}
-									className="font-mono text-[11px] text-muted hover:text-signal transition-colors self-start"
-								>
-									source code →
-								</a>
-							)}
-						</a>
+								</div>
+								<p className="font-mono text-xs text-route mb-4">
+									{p.subtitle}
+								</p>
+								<ul className="space-y-2 mb-5 flex-1">
+									{p.points.map((pt, i) => (
+										<li key={i} className="text-sm text-muted flex gap-3">
+											<span className="text-line font-mono select-none">·</span>
+											<span>{pt}</span>
+										</li>
+									))}
+								</ul>
+								<div className="flex flex-wrap gap-2 mb-4">
+									{p.stack.map((s) => (
+										<span
+											key={s}
+											className="font-mono text-[10px] px-2 py-1 border border-line rounded text-muted bg-surface2"
+										>
+											{s}
+										</span>
+									))}
+								</div>
+								{p.secondaryLink && (
+									<a
+										href={p.secondaryLink}
+										target="_blank"
+										rel="noreferrer"
+										onClick={(e) => e.stopPropagation()}
+										className="font-mono text-[11px] text-muted hover:text-signal transition-colors self-start"
+									>
+										source code →
+									</a>
+								)}
+							</a>
+						</Reveal>
 					))}
 				</div>
 			</div>

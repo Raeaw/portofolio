@@ -1,4 +1,5 @@
 import SectionHeader from "./SectionHeader.jsx";
+import Reveal from "./Reveal.jsx";
 
 const groups = [
 	{ label: "Languages", items: ["Indonesian", "English"] },
@@ -59,11 +60,13 @@ export default function Skills() {
 	return (
 		<section id="skills" className="py-24 px-6 border-b border-line grid-bg">
 			<div className="max-w-5xl mx-auto">
-				<SectionHeader eyebrow="04" title="Skills & Certifications" />
+				<Reveal>
+					<SectionHeader eyebrow="04" title="Skills & Certifications" />
+				</Reveal>
 				<div className="grid md:grid-cols-2 gap-10">
 					<div className="space-y-6">
-						{groups.map((g) => (
-							<div key={g.label}>
+						{groups.map((g, gi) => (
+							<Reveal key={g.label} delay={gi * 70}>
 								<div className="font-mono text-xs text-signal mb-2">
 									{g.label}
 								</div>
@@ -77,17 +80,19 @@ export default function Skills() {
 										</span>
 									))}
 								</div>
-							</div>
+							</Reveal>
 						))}
 					</div>
 
 					<div>
-						<div className="font-mono text-xs text-signal mb-2">
-							Certifications
-						</div>
+						<Reveal>
+							<div className="font-mono text-xs text-signal mb-2">
+								Certifications
+							</div>
+						</Reveal>
 						<ul className="space-y-3">
-							{certifications.map((c) => (
-								<li key={c.name}>
+							{certifications.map((c, ci) => (
+								<Reveal as="li" key={c.name} delay={100 + ci * 80}>
 									<a
 										href={c.link}
 										target="_blank"
@@ -104,7 +109,7 @@ export default function Skills() {
 											↗
 										</span>
 									</a>
-								</li>
+								</Reveal>
 							))}
 						</ul>
 					</div>

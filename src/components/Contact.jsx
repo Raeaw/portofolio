@@ -1,9 +1,10 @@
 import { MailIcon, WhatsappIcon, GithubIcon, LinkedinIcon } from "./Icons.jsx";
+import Reveal from "./Reveal.jsx";
 
 export default function Contact() {
 	return (
 		<section id="contact" className="py-24 px-6">
-			<div className="max-w-5xl mx-auto text-center">
+			<Reveal as="div" className="max-w-5xl mx-auto text-center">
 				<div className="font-mono text-xs text-route mb-3">contact</div>
 				<h2 className="font-mono font-bold text-2xl sm:text-3xl text-text mb-4">
 					Let's build something.
@@ -53,7 +54,7 @@ export default function Contact() {
 				<div className="mt-10 font-mono text-[11px] text-line">
 					200 OK · built with vite + react + tailwind
 				</div>
-			</div>
+			</Reveal>
 		</section>
 	);
 }
