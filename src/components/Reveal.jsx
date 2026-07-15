@@ -2,19 +2,23 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Reveal
- * Wraps children and animates them in (fade + slide up) once they enter the viewport.
+ * Wraps children and animates them in (fade + slide up) when they enter the viewport.
  * No extra dependency — plain IntersectionObserver.
  *
  * Props:
  *  - as: element tag to render as (default 'div')
  *  - delay: ms delay before the transition starts (useful for stagger)
  *  - className: extra classes merged onto the wrapper
+ *  - once: if true (default), animate in only the first time and stay visible after.
+ *          if false, the element fades out again when scrolled out of view and
+ *          replays the animation every time it re-enters — no reload needed.
  */
 export default function Reveal({
 	children,
 	as: Tag = "div",
 	delay = 0,
 	className = "",
+	once = true,
 }) {
 	const ref = useRef(null);
 	const [visible, setVisible] = useState(false);
@@ -37,7 +41,9 @@ export default function Reveal({
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						setVisible(true);
-						observer.unobserve(entry.target);
+						if (once) observer.unobserve(entry.target);
+					} else if (!once) {
+						setVisible(false);
 					}
 				});
 			},
@@ -46,7 +52,7 @@ export default function Reveal({
 
 		observer.observe(node);
 		return () => observer.disconnect();
-	}, []);
+	}, [once]);
 
 	return (
 		<Tag

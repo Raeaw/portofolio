@@ -66,7 +66,7 @@ export default function Skills() {
 				<div className="grid md:grid-cols-2 gap-10">
 					<div className="space-y-6">
 						{groups.map((g, gi) => (
-							<Reveal key={g.label} delay={gi * 70}>
+							<Reveal key={g.label} delay={gi * 70} once={false}>
 								<div className="font-mono text-xs text-signal mb-2">
 									{g.label}
 								</div>
