@@ -6,6 +6,10 @@ const links = [
 	{ label: "contact", href: "#contact", port: "3004" },
 ];
 
+function openCommandPalette() {
+	window.dispatchEvent(new CustomEvent("open-command-palette"));
+}
+
 export default function Nav() {
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 border-b border-line bg-ink/90 backdrop-blur-sm">
@@ -31,14 +35,26 @@ export default function Nav() {
 						</li>
 					))}
 				</ul>
-				<a
-					href="https://wa.me/6285776616362"
-					target="_blank"
-					rel="noreferrer"
-					className="font-mono text-xs px-3 py-1.5 rounded border border-signal/40 text-signal transition-all duration-200 hover:bg-signal hover:text-ink hover:-translate-y-0.5 hover:shadow-md hover:shadow-signal/20"
-				>
-					connect →
-				</a>
+				<div className="flex items-center gap-3">
+					<button
+						onClick={openCommandPalette}
+						aria-label="Open quick navigation"
+						className="hidden sm:flex items-center gap-2 font-mono text-xs px-2.5 py-1.5 rounded border border-line text-muted transition-all duration-200 hover:text-text hover:border-text hover:-translate-y-0.5"
+					>
+						<span>search</span>
+						<kbd className="text-[10px] border border-line rounded px-1 py-0.5 text-muted">
+							⌘K
+						</kbd>
+					</button>
+					<a
+						href="https://wa.me/6285776616362"
+						target="_blank"
+						rel="noreferrer"
+						className="font-mono text-xs px-3 py-1.5 rounded border border-signal/40 text-signal transition-all duration-200 hover:bg-signal hover:text-ink hover:-translate-y-0.5 hover:shadow-md hover:shadow-signal/20"
+					>
+						connect →
+					</a>
+				</div>
 			</nav>
 		</header>
 	);
