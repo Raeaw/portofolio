@@ -1,5 +1,6 @@
 import SectionHeader from "./SectionHeader.jsx";
 import Reveal from "./Reveal.jsx";
+import GithubStats from "./GithubStats.jsx";
 
 const projects = [
 	{
@@ -60,9 +61,12 @@ export default function Projects() {
 				<Reveal>
 					<SectionHeader eyebrow="03" title="Projects" />
 				</Reveal>
+
+				<GithubStats />
+
 				<div className="grid md:grid-cols-2 gap-6">
 					{projects.map((p, idx) => (
-						<Reveal key={p.name} delay={idx * 90} once={false}>
+						<Reveal key={p.name} delay={idx * 90}>
 							<a
 								href={p.link}
 								target="_blank"

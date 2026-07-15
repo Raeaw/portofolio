@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
@@ -28,6 +29,9 @@ export default function App() {
 
 			{/* Cmd+K / Ctrl+K quick navigation — mounted once, listens globally */}
 			<CommandPalette />
+
+			{/* Vercel Web Analytics — only sends data once deployed on Vercel */}
+			<Analytics />
 		</div>
 	);
 }
