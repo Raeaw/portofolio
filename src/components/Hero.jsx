@@ -1,5 +1,6 @@
 import { MailIcon, GithubIcon, LinkedinIcon } from "./Icons.jsx";
 import Reveal from "./Reveal.jsx";
+import AnimatedText from "./AnimatedText.jsx";
 
 export default function Hero() {
 	return (
@@ -18,13 +19,11 @@ export default function Hero() {
 					</div>
 				</Reveal>
 
-				<Reveal delay={100}>
-					<h1 className="font-mono font-bold text-4xl sm:text-6xl leading-[1.1] text-text mb-6">
-						Raffi Darrell
-						<br />
-						Firmansyah
-					</h1>
-				</Reveal>
+				<h1 className="font-mono font-bold text-4xl sm:text-6xl leading-[1.1] text-text mb-6">
+					<AnimatedText text="Raffi Darrell" speed={30} baseDelay={100} />
+					<br />
+					<AnimatedText text="Firmansyah" speed={30} baseDelay={480} />
+				</h1>
 
 				<Reveal delay={200}>
 					<p className="max-w-xl text-muted text-base sm:text-lg mb-10 leading-relaxed">

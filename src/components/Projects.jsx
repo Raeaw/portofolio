@@ -66,7 +66,7 @@ export default function Projects() {
 
 				<div className="grid md:grid-cols-2 gap-6">
 					{projects.map((p, idx) => (
-						<Reveal key={p.name} delay={idx * 90}>
+						<Reveal key={p.name} delay={idx * 90} once={false}>
 							<a
 								href={p.link}
 								target="_blank"

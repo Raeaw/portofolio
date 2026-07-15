@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Reveal from "./Reveal.jsx";
+import { GithubIcon } from "./Icons.jsx";
 
 const USERNAME = "Raeaw";
 
@@ -70,6 +71,7 @@ export default function GithubStats() {
 		<Reveal className="mb-8">
 			<div className="border border-line rounded-lg bg-surface/60 px-5 py-4 font-mono text-xs">
 				<div className="flex items-center gap-2 text-muted mb-3">
+					<span className="text-route"><GithubIcon /></span>
 					<span className="text-route">Github</span>
 					<span>/stats</span>
 					<span
