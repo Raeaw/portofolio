@@ -74,7 +74,7 @@ export default function Skills() {
 									{g.items.map((s) => (
 										<span
 											key={s}
-											className="font-mono text-[11px] px-2.5 py-1 border border-line rounded text-text bg-surface2"
+											className="font-mono text-[11px] px-2.5 py-1 border border-line rounded text-text bg-surface2 transition-all duration-200 hover:-translate-y-0.5 hover:border-route/50 hover:text-route"
 										>
 											{s}
 										</span>
@@ -92,12 +92,12 @@ export default function Skills() {
 						</Reveal>
 						<ul className="space-y-3">
 							{certifications.map((c, ci) => (
-								<Reveal as="li" key={c.name} delay={100 + ci * 80}>
+								<Reveal as="li" key={c.name} delay={100 + ci * 80} once={false}>
 									<a
 										href={c.link}
 										target="_blank"
 										rel="noreferrer"
-										className="group flex items-center justify-between gap-4 border border-line rounded-lg bg-surface/70 p-4 hover:border-signal/50 transition-colors"
+										className="group flex items-center justify-between gap-4 border border-line rounded-lg bg-surface/70 p-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/25 hover:border-signal/50"
 									>
 										<div>
 											<div className="text-sm text-text">{c.name}</div>
@@ -105,7 +105,7 @@ export default function Skills() {
 												{c.date}
 											</div>
 										</div>
-										<span className="font-mono text-muted group-hover:text-signal transition-colors">
+										<span className="font-mono text-muted transition-all duration-300 group-hover:text-signal group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
 											↗
 										</span>
 									</a>

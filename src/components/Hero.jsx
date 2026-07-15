@@ -10,7 +10,10 @@ export default function Hero() {
 			<div className="max-w-5xl mx-auto">
 				<Reveal>
 					<div className="flex items-center gap-2 font-mono text-xs text-route mb-6">
-						<span className="w-2 h-2 rounded-full bg-route animate-pulse" />
+						<span className="relative flex w-2 h-2">
+							<span className="absolute inline-flex h-full w-full rounded-full bg-route opacity-60 animate-ping" />
+							<span className="relative inline-flex w-2 h-2 rounded-full bg-route" />
+						</span>
 						STATUS: available for internship / collab
 					</div>
 				</Reveal>
@@ -37,7 +40,7 @@ export default function Hero() {
 					<div className="mt-8 flex flex-wrap items-center gap-5 font-mono text-xs text-muted">
 						<a
 							href="mailto:raffi.darrell.f@gmail.com"
-							className="flex items-center gap-2 hover:text-signal transition-colors"
+							className="flex items-center gap-2 transition-all duration-200 hover:text-signal hover:-translate-y-0.5"
 						>
 							<MailIcon className="w-4 h-4" />
 							raffi.darrell.f@gmail.com
@@ -47,7 +50,7 @@ export default function Hero() {
 							href="https://github.com/Raeaw"
 							target="_blank"
 							rel="noreferrer"
-							className="flex items-center gap-2 hover:text-signal transition-colors"
+							className="flex items-center gap-2 transition-all duration-200 hover:text-signal hover:-translate-y-0.5"
 						>
 							<GithubIcon className="w-4 h-4" />
 							github.com/Raeaw
@@ -57,7 +60,7 @@ export default function Hero() {
 							href="https://linkedin.com/in/raffidarrell"
 							target="_blank"
 							rel="noreferrer"
-							className="flex items-center gap-2 hover:text-signal transition-colors"
+							className="flex items-center gap-2 transition-all duration-200 hover:text-signal hover:-translate-y-0.5"
 						>
 							<LinkedinIcon className="w-4 h-4" />
 							linkedin.com/in/raffidarrell

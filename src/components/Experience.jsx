@@ -27,7 +27,7 @@ export default function Experience() {
 				<div className="space-y-6">
 					{items.map((item, idx) => (
 						<Reveal key={item.org} delay={idx * 100}>
-							<div className="border border-line rounded-lg bg-surface/70 p-6">
+							<div className="border border-line rounded-lg bg-surface/70 p-6 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30 hover:border-signal/40">
 								<div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
 									<h3 className="text-text font-semibold text-lg">
 										{item.org}

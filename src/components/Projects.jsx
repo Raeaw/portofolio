@@ -67,11 +67,11 @@ export default function Projects() {
 								href={p.link}
 								target="_blank"
 								rel="noreferrer"
-								className="group border border-line rounded-lg bg-surface/70 p-6 hover:border-signal/50 transition-colors flex flex-col h-full"
+								className="group border border-line rounded-lg bg-surface/70 p-6 flex flex-col h-full transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30 hover:border-signal/50"
 							>
 								<div className="flex items-center justify-between mb-1">
 									<h3 className="text-text font-semibold text-lg">{p.name}</h3>
-									<span className="font-mono text-muted group-hover:text-signal transition-colors">
+									<span className="font-mono text-muted transition-all duration-300 group-hover:text-signal group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
 										↗
 									</span>
 								</div>
@@ -90,7 +90,7 @@ export default function Projects() {
 									{p.stack.map((s) => (
 										<span
 											key={s}
-											className="font-mono text-[10px] px-2 py-1 border border-line rounded text-muted bg-surface2"
+											className="font-mono text-[10px] px-2 py-1 border border-line rounded text-muted bg-surface2 transition-colors duration-300 group-hover:border-route/40 group-hover:text-text"
 										>
 											{s}
 										</span>
