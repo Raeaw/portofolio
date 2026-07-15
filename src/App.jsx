@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/react'
+import { Analytics } from "@vercel/analytics/react";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
 import About from "./components/About.jsx";
@@ -7,12 +7,14 @@ import Projects from "./components/Projects.jsx";
 import Skills from "./components/Skills.jsx";
 import Contact from "./components/Contact.jsx";
 import CommandPalette from "./components/CommandPalette.jsx";
+import AnimatedBackground from "./components/AnimatedBackground.jsx";
 
 export default function App() {
 	return (
 		<div className="bg-ink min-h-screen text-text relative">
 			{/* Ambient depth layers — fixed behind everything, don't affect layout or scroll */}
 			<div className="page-glow" />
+			<AnimatedBackground />
 			<div className="noise-overlay" />
 
 			<div className="content-layer">
