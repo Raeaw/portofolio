@@ -3,41 +3,108 @@
 @tailwind utilities;
 
 * {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 }
 
-html, body {
-  background-color: #12161C;
+html,
+body {
+	background-color: #12161c;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  color: #E8E6E1;
+	font-family: "Inter", sans-serif;
+	color: #e8e6e1;
 }
 
 ::selection {
-  background: #F0B429;
-  color: #12161C;
+	background: #f0b429;
+	color: #12161c;
 }
 
 :focus-visible {
-  outline: 2px solid #5EEAD4;
-  outline-offset: 3px;
+	outline: 2px solid #5eead4;
+	outline-offset: 3px;
 }
 
-/* subtle blueprint grid backdrop */
+/* subtle blueprint grid backdrop — the pattern + mask live on a ::before
+   pseudo-element so it only fades the decorative grid itself, never the
+   real section content sitting on top of it (mask-image affects the WHOLE
+   element it's applied to, including children — this is why content used
+   to fade out toward the bottom before). */
 .grid-bg {
-  background-image:
-    linear-gradient(rgba(94, 234, 212, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(94, 234, 212, 0.06) 1px, transparent 1px);
-  background-size: 40px 40px;
+	position: relative;
+	isolation: isolate;
+}
+
+.grid-bg::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background-image:
+		linear-gradient(rgba(94, 234, 212, 0.06) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(94, 234, 212, 0.06) 1px, transparent 1px);
+	background-size: 40px 40px;
+	-webkit-mask-image: radial-gradient(
+		ellipse 80% 60% at 50% 40%,
+		#000 40%,
+		transparent 100%
+	);
+	mask-image: radial-gradient(
+		ellipse 80% 60% at 50% 40%,
+		#000 40%,
+		transparent 100%
+	);
+}
+
+.grid-bg > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* soft ambient gradient glow sitting behind the whole page, anchored near the
+   top so it reads as a light source rather than a flat block of color. */
+.page-glow {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(
+			60% 40% at 15% 0%,
+			rgba(94, 234, 212, 0.07),
+			transparent 60%
+		),
+		radial-gradient(
+			50% 35% at 85% 15%,
+			rgba(240, 180, 41, 0.05),
+			transparent 60%
+		);
+}
+
+/* faint film-grain noise overlay for texture, avoids the flat "empty" look
+   on large single-color surfaces. Kept very low opacity. */
+.noise-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	opacity: 0.035;
+	mix-blend-mode: overlay;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.content-layer {
+	position: relative;
+	z-index: 10;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+	* {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }

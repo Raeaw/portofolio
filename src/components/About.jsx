@@ -14,7 +14,7 @@ const courses = [
 
 export default function About() {
 	return (
-		<section id="about" className="py-24 px-6 border-b border-line">
+		<section id="about" className="py-24 px-6 border-b border-line grid-bg">
 			<div className="max-w-5xl mx-auto">
 				<Reveal>
 					<SectionHeader eyebrow="01" title="Education" />
