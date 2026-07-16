@@ -11,7 +11,6 @@ import AnimatedBackground from "./components/AnimatedBackground.jsx";
 import BootScreen from "./components/BootScreen.jsx";
 import CustomCursor from "./components/CustomCursor.jsx";
 import CursorTrail from "./components/CursorTrail.jsx";
-import ParticleBurst from "./components/ParticleBurst.jsx";
 
 export default function App() {
 	return (
@@ -35,9 +34,6 @@ export default function App() {
 
 			{/* Cmd+K / Ctrl+K quick navigation — mounted once, listens globally */}
 			<CommandPalette />
-
-			{/* Right-click on empty areas spawns a themed particle burst — native context menu still opens as normal */}
-			<ParticleBurst />
 
 			{/* Subtle fading dot trail — deliberately minimal, off on touch/reduced-motion */}
 			<CursorTrail />
