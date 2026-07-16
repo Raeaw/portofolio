@@ -5,7 +5,7 @@ const IDLE_FRAME = 16; // px, frame size when not hovering anything
 const HOVER_PADDING = 8; // px, extra space around the hovered element's bounds
 const LERP = 0.22; // magnetic follow speed (0-1, higher = snappier)
 
-export default function CustomCursor() {
+export default function CustomCursor({ hidden = false }) {
 	const dotRef = useRef(null);
 	const cornerRefs = useRef([null, null, null, null]); // TL, TR, BR, BL
 	const [enabled, setEnabled] = useState(false);
@@ -51,14 +51,12 @@ export default function CustomCursor() {
 		}
 		function placeCorners(f) {
 			const { x, y, w, h } = f;
-			// [top-left, top-right, bottom-right, bottom-left]
 			corners[0].style.transform = `translate3d(${x}px, ${y}px, 0)`;
 			corners[1].style.transform = `translate3d(${x + w}px, ${y}px, 0) rotate(90deg)`;
 			corners[2].style.transform = `translate3d(${x + w}px, ${y + h}px, 0) rotate(180deg)`;
 			corners[3].style.transform = `translate3d(${x}px, ${y + h}px, 0) rotate(270deg)`;
 		}
 
-		// place immediately so nothing starts stuck at (0,0)
 		placeDot(mouseX, mouseY);
 		placeCorners(frame);
 
@@ -133,13 +131,20 @@ export default function CustomCursor() {
 
 	return (
 		<>
-			{/* precise center dot — always exactly on the real mouse position */}
+			{/* precise center dot — always exactly on the real mouse position.
+          `hidden` (true during boot screen) just fades it out via opacity;
+          the rAF loop underneath keeps running so position stays in sync
+          and it reappears instantly, already correctly placed, once boot ends. */}
 			<div
 				ref={dotRef}
-				className={`fixed top-0 left-0 z-[300] pointer-events-none rounded-full transition-[width,height,background-color] duration-200 ${
+				className={`fixed top-0 left-0 z-[300] pointer-events-none rounded-full transition-[width,height,background-color,opacity] duration-200 ${
 					hovering ? "bg-signal" : "bg-route"
 				}`}
-				style={{ width: hovering ? 3 : 4, height: hovering ? 3 : 4 }}
+				style={{
+					width: hovering ? 3 : 4,
+					height: hovering ? 3 : 4,
+					opacity: hidden ? 0 : 1,
+				}}
 			/>
 
 			{/* four L-shaped corner brackets forming a magnetic viewfinder frame */}
@@ -147,7 +152,8 @@ export default function CustomCursor() {
 				<div
 					key={i}
 					ref={(el) => (cornerRefs.current[i] = el)}
-					className="fixed top-0 left-0 z-[300] pointer-events-none"
+					className="fixed top-0 left-0 z-[300] pointer-events-none transition-opacity duration-200"
+					style={{ opacity: hidden ? 0 : 1 }}
 				>
 					<div
 						className={`border-t-2 border-l-2 rounded-tl-[2px] transition-colors duration-200 ${

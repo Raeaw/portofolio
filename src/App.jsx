@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import Nav from "./components/Nav.jsx";
 import Hero from "./components/Hero.jsx";
@@ -11,8 +12,12 @@ import AnimatedBackground from "./components/AnimatedBackground.jsx";
 import BootScreen from "./components/BootScreen.jsx";
 import CustomCursor from "./components/CustomCursor.jsx";
 import CursorTrail from "./components/CursorTrail.jsx";
+import BootScreenRadar from "./components/BootScreenRadar.jsx";
+import BootScreenCircuit from "./components/BootScreenCircuit.jsx";
 
 export default function App() {
+	const [booting, setBooting] = useState(true);
+
 	return (
 		<div className="bg-ink min-h-screen text-text relative">
 			{/* Ambient depth layers — fixed behind everything, don't affect layout or scroll */}
@@ -35,14 +40,14 @@ export default function App() {
 			{/* Cmd+K / Ctrl+K quick navigation — mounted once, listens globally */}
 			<CommandPalette />
 
-			{/* Subtle fading dot trail — deliberately minimal, off on touch/reduced-motion */}
-			<CursorTrail />
+			{/* Subtle fading dot trail — hidden during boot, off on touch/reduced-motion */}
+			<CursorTrail hidden={booting} />
 
-			{/* Custom cursor — no-op on touch devices / reduced-motion */}
-			<CustomCursor />
+			{/* Custom cursor — hidden during boot so it doesn't sit frozen center-screen */}
+			<CustomCursor hidden={booting} />
 
 			{/* One-time terminal boot sequence shown on first paint */}
-			<BootScreen />
+			<BootScreenCircuit onComplete={() => setBooting(false)} />
 
 			{/* Vercel Web Analytics — only sends data once deployed on Vercel */}
 			<Analytics />

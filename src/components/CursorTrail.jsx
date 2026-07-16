@@ -9,8 +9,10 @@ const MIN_MOVE_DIST = 4; // px — only spawn a dot if the mouse actually moved 
 
 const ROUTE = "94, 234, 212";
 
-export default function CursorTrail() {
+export default function CursorTrail({ hidden = false }) {
 	const canvasRef = useRef(null);
+	const hiddenRef = useRef(hidden);
+	hiddenRef.current = hidden;
 
 	useEffect(() => {
 		const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
@@ -44,6 +46,7 @@ export default function CursorTrail() {
 		let rafId;
 
 		function onMouseMove(e) {
+			if (hiddenRef.current) return;
 			const now = performance.now();
 			const dx = lastX === null ? Infinity : e.clientX - lastX;
 			const dy = lastY === null ? Infinity : e.clientY - lastY;
