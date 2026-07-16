@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 
+const CORNER_SIZE = 8; // px, length of each L-shaped corner arm
+const IDLE_FRAME = 16; // px, frame size when not hovering anything
+const HOVER_PADDING = 8; // px, extra space around the hovered element's bounds
+const LERP = 0.22; // magnetic follow speed (0-1, higher = snappier)
+
 export default function CustomCursor() {
 	const dotRef = useRef(null);
-	const ringRef = useRef(null);
+	const cornerRefs = useRef([null, null, null, null]); // TL, TR, BR, BL
 	const [enabled, setEnabled] = useState(false);
 	const [hovering, setHovering] = useState(false);
-	const [ready, setReady] = useState(false);
 
-	// Step 1: decide whether this device/preferences allow a custom cursor.
-	// This only flips `enabled`, which causes the dot/ring elements below to
-	// actually mount — refs don't exist until that render happens.
+	// Step 1: capability check. Flips `enabled`, which mounts the refs below.
 	useEffect(() => {
 		const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 		const prefersReduced = window.matchMedia(
@@ -19,41 +21,78 @@ export default function CustomCursor() {
 			setEnabled(true);
 			document.documentElement.classList.add("custom-cursor-active");
 		}
-		return () => {
+		return () =>
 			document.documentElement.classList.remove("custom-cursor-active");
-		};
 	}, []);
 
-	// Step 2: once enabled (and therefore mounted), the refs point at real
-	// DOM nodes — safe to wire up mousemove/rAF tracking here.
+	// Step 2: only runs once `enabled` is true and the elements are actually
+	// mounted, so refs are guaranteed to exist here.
 	useEffect(() => {
 		if (!enabled) return;
-
 		const dot = dotRef.current;
-		const ring = ringRef.current;
-		if (!dot || !ring) return;
+		const corners = cornerRefs.current;
+		if (!dot || corners.some((c) => !c)) return;
 
 		let mouseX = window.innerWidth / 2;
 		let mouseY = window.innerHeight / 2;
-		let ringX = mouseX;
-		let ringY = mouseY;
+		let hoveredEl = null;
 		let rafId;
 
-		// place both immediately so nothing sits at the default (0,0) corner
-		dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-		ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+		// current (lerped) frame, and where it's trying to go
+		let frame = {
+			x: mouseX - IDLE_FRAME / 2,
+			y: mouseY - IDLE_FRAME / 2,
+			w: IDLE_FRAME,
+			h: IDLE_FRAME,
+		};
+
+		function placeDot(x, y) {
+			dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+		}
+		function placeCorners(f) {
+			const { x, y, w, h } = f;
+			// [top-left, top-right, bottom-right, bottom-left]
+			corners[0].style.transform = `translate3d(${x}px, ${y}px, 0)`;
+			corners[1].style.transform = `translate3d(${x + w}px, ${y}px, 0) rotate(90deg)`;
+			corners[2].style.transform = `translate3d(${x + w}px, ${y + h}px, 0) rotate(180deg)`;
+			corners[3].style.transform = `translate3d(${x}px, ${y + h}px, 0) rotate(270deg)`;
+		}
+
+		// place immediately so nothing starts stuck at (0,0)
+		placeDot(mouseX, mouseY);
+		placeCorners(frame);
 
 		function onMouseMove(e) {
 			mouseX = e.clientX;
 			mouseY = e.clientY;
-			dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-			setReady(true);
+			placeDot(mouseX, mouseY);
+		}
+
+		function targetFrame() {
+			if (hoveredEl) {
+				const r = hoveredEl.getBoundingClientRect();
+				return {
+					x: r.left - HOVER_PADDING,
+					y: r.top - HOVER_PADDING,
+					w: r.width + HOVER_PADDING * 2,
+					h: r.height + HOVER_PADDING * 2,
+				};
+			}
+			return {
+				x: mouseX - IDLE_FRAME / 2,
+				y: mouseY - IDLE_FRAME / 2,
+				w: IDLE_FRAME,
+				h: IDLE_FRAME,
+			};
 		}
 
 		function loop() {
-			ringX += (mouseX - ringX) * 0.18;
-			ringY += (mouseY - ringY) * 0.18;
-			ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+			const t = targetFrame();
+			frame.x += (t.x - frame.x) * LERP;
+			frame.y += (t.y - frame.y) * LERP;
+			frame.w += (t.w - frame.w) * LERP;
+			frame.h += (t.h - frame.h) * LERP;
+			placeCorners(frame);
 			rafId = requestAnimationFrame(loop);
 		}
 
@@ -63,10 +102,18 @@ export default function CustomCursor() {
 			);
 		}
 		function onMouseOver(e) {
-			if (isInteractive(e.target)) setHovering(true);
+			const target = isInteractive(e.target);
+			if (target) {
+				hoveredEl = target;
+				setHovering(true);
+			}
 		}
 		function onMouseOut(e) {
-			if (isInteractive(e.target)) setHovering(false);
+			const target = isInteractive(e.target);
+			if (target && target === hoveredEl) {
+				hoveredEl = null;
+				setHovering(false);
+			}
 		}
 
 		window.addEventListener("mousemove", onMouseMove, { passive: true });
@@ -86,29 +133,30 @@ export default function CustomCursor() {
 
 	return (
 		<>
-			{/* small solid dot, tracks instantly */}
+			{/* precise center dot — always exactly on the real mouse position */}
 			<div
 				ref={dotRef}
-				className="fixed top-0 left-0 z-[300] pointer-events-none rounded-full bg-route transition-[width,height,opacity] duration-150"
-				style={{
-					width: hovering ? 0 : 6,
-					height: hovering ? 0 : 6,
-					opacity: !ready ? 0 : hovering ? 0 : 0.9,
-				}}
-			/>
-			{/* outer ring, trails with lag — morphs from circle to squared brackets on hover */}
-			<div
-				ref={ringRef}
-				className={`fixed top-0 left-0 z-[300] pointer-events-none border transition-[width,height,border-radius,border-color,opacity] duration-200 ease-out ${
-					hovering ? "border-signal" : "border-route/70"
+				className={`fixed top-0 left-0 z-[300] pointer-events-none rounded-full transition-[width,height,background-color] duration-200 ${
+					hovering ? "bg-signal" : "bg-route"
 				}`}
-				style={{
-					width: hovering ? 44 : 26,
-					height: hovering ? 44 : 26,
-					borderRadius: hovering ? 8 : 999,
-					opacity: ready ? 1 : 0,
-				}}
+				style={{ width: hovering ? 3 : 4, height: hovering ? 3 : 4 }}
 			/>
+
+			{/* four L-shaped corner brackets forming a magnetic viewfinder frame */}
+			{[0, 1, 2, 3].map((i) => (
+				<div
+					key={i}
+					ref={(el) => (cornerRefs.current[i] = el)}
+					className="fixed top-0 left-0 z-[300] pointer-events-none"
+				>
+					<div
+						className={`border-t-2 border-l-2 rounded-tl-[2px] transition-colors duration-200 ${
+							hovering ? "border-signal" : "border-route/80"
+						}`}
+						style={{ width: CORNER_SIZE, height: CORNER_SIZE }}
+					/>
+				</div>
+			))}
 		</>
 	);
 }
