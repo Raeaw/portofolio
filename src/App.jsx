@@ -8,6 +8,8 @@ import Skills from "./components/Skills.jsx";
 import Contact from "./components/Contact.jsx";
 import CommandPalette from "./components/CommandPalette.jsx";
 import AnimatedBackground from "./components/AnimatedBackground.jsx";
+import BootScreen from "./components/BootScreen.jsx";
+import CustomCursor from "./components/CustomCursor.jsx";
 
 export default function App() {
 	return (
@@ -31,6 +33,12 @@ export default function App() {
 
 			{/* Cmd+K / Ctrl+K quick navigation — mounted once, listens globally */}
 			<CommandPalette />
+
+			{/* Custom cursor — no-op on touch devices / reduced-motion */}
+			<CustomCursor />
+
+			{/* One-time terminal boot sequence shown on first paint */}
+			<BootScreen />
 
 			{/* Vercel Web Analytics — only sends data once deployed on Vercel */}
 			<Analytics />
