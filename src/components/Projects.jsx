@@ -66,12 +66,12 @@ export default function Projects() {
 
 				<div className="grid md:grid-cols-2 gap-6">
 					{projects.map((p, idx) => (
-						<Reveal key={p.name} delay={idx * 90} once={false}>
+						<Reveal key={p.name} delay={idx * 90}>
 							<a
 								href={p.link}
 								target="_blank"
 								rel="noreferrer"
-								className="group border border-line rounded-lg bg-surface/70 p-6 flex flex-col h-full transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30 hover:border-signal/50"
+								className="glow-border group border border-line rounded-lg bg-surface/70 p-6 flex flex-col h-full transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30"
 							>
 								<div className="flex items-center justify-between mb-1">
 									<h3 className="text-text font-semibold text-lg">{p.name}</h3>

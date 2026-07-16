@@ -66,7 +66,7 @@ export default function Skills() {
 				<div className="grid md:grid-cols-2 gap-10">
 					<div className="space-y-6">
 						{groups.map((g, gi) => (
-							<Reveal key={g.label} delay={gi * 70} once={false}>
+							<Reveal key={g.label} delay={gi * 70}>
 								<div className="font-mono text-xs text-signal mb-2">
 									{g.label}
 								</div>
@@ -92,12 +92,12 @@ export default function Skills() {
 						</Reveal>
 						<ul className="space-y-3">
 							{certifications.map((c, ci) => (
-								<Reveal as="li" key={c.name} delay={100 + ci * 80} once={false}>
+								<Reveal as="li" key={c.name} delay={100 + ci * 80}>
 									<a
 										href={c.link}
 										target="_blank"
 										rel="noreferrer"
-										className="group flex items-center justify-between gap-4 border border-line rounded-lg bg-surface/70 p-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/25 hover:border-signal/50"
+										className="glow-border group flex items-center justify-between gap-4 border border-line rounded-lg bg-surface/70 p-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/25"
 									>
 										<div>
 											<div className="text-sm text-text">{c.name}</div>

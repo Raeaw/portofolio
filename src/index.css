@@ -167,3 +167,67 @@ html.custom-cursor-active button,
 html.custom-cursor-active * {
 	cursor: none !important;
 }
+
+/* ────────────────────────────────────────────────────────────────
+   Animated rotating-gradient border for cards/buttons on hover.
+   Feature-detected via @supports so browsers without mask-composite
+   support simply keep the existing static border-color hover — no
+   broken/solid overlay fallback risk.
+   ──────────────────────────────────────────────────────────────── */
+@property --border-angle {
+	syntax: "<angle>";
+	initial-value: 0deg;
+	inherits: false;
+}
+
+@supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
+	.glow-border {
+		position: relative;
+		isolation: isolate;
+	}
+
+	.glow-border::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 5;
+		border-radius: inherit;
+		padding: 1.5px;
+		pointer-events: none;
+		background: conic-gradient(
+			from var(--border-angle, 0deg),
+			transparent 0deg,
+			transparent 40deg,
+			rgba(240, 180, 41, 0.95) 90deg,
+			rgba(94, 234, 212, 0.85) 150deg,
+			transparent 210deg,
+			transparent 360deg
+		);
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+		opacity: 0;
+		transition: opacity 0.35s ease;
+		animation: spin-border 2.6s linear infinite;
+		animation-play-state: paused;
+	}
+
+	.glow-border:hover::after {
+		opacity: 1;
+		animation-play-state: running;
+	}
+}
+
+@keyframes spin-border {
+	to {
+		--border-angle: 360deg;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.glow-border::after {
+		animation: none !important;
+	}
+}
