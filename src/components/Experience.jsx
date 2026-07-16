@@ -27,24 +27,34 @@ export default function Experience() {
 				<div className="space-y-6">
 					{items.map((item, idx) => (
 						<Reveal key={item.org} delay={idx * 100}>
-							<div className="glow-border border border-line rounded-lg bg-surface/70 p-6 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30">
-								<div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-									<h3 className="text-text font-semibold text-lg">
-										{item.org}
-									</h3>
-									<span className="font-mono text-xs text-signal whitespace-nowrap">
-										{item.period}
-									</span>
+							<div className="glow-frame transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30">
+								{/* opaque backing — stops the glowing frame's background from
+                    bleeding through the card's semi-transparent bg-surface/70 */}
+								<div className="rounded-[7px] overflow-hidden bg-ink">
+									<div className="bg-surface/70 p-6">
+										<div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
+											<h3 className="text-text font-semibold text-lg">
+												{item.org}
+											</h3>
+											<span className="font-mono text-xs text-signal whitespace-nowrap">
+												{item.period}
+											</span>
+										</div>
+										<p className="font-mono text-xs text-route mb-4">
+											{item.role}
+										</p>
+										<ul className="space-y-2">
+											{item.points.map((p, i) => (
+												<li key={i} className="text-sm text-muted flex gap-3">
+													<span className="text-line font-mono select-none">
+														·
+													</span>
+													<span>{p}</span>
+												</li>
+											))}
+										</ul>
+									</div>
 								</div>
-								<p className="font-mono text-xs text-route mb-4">{item.role}</p>
-								<ul className="space-y-2">
-									{item.points.map((p, i) => (
-										<li key={i} className="text-sm text-muted flex gap-3">
-											<span className="text-line font-mono select-none">·</span>
-											<span>{p}</span>
-										</li>
-									))}
-								</ul>
 							</div>
 						</Reveal>
 					))}

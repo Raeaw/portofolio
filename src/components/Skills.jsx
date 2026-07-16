@@ -93,22 +93,28 @@ export default function Skills() {
 						<ul className="space-y-3">
 							{certifications.map((c, ci) => (
 								<Reveal as="li" key={c.name} delay={100 + ci * 80}>
-									<a
-										href={c.link}
-										target="_blank"
-										rel="noreferrer"
-										className="glow-border group flex items-center justify-between gap-4 border border-line rounded-lg bg-surface/70 p-4 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/25"
-									>
-										<div>
-											<div className="text-sm text-text">{c.name}</div>
-											<div className="font-mono text-[11px] text-muted mt-1">
-												{c.date}
-											</div>
+									<div className="glow-frame transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-black/25">
+										{/* opaque backing — stops the glowing frame's background
+                        from bleeding through the semi-transparent card */}
+										<div className="rounded-[7px] overflow-hidden bg-ink">
+											<a
+												href={c.link}
+												target="_blank"
+												rel="noreferrer"
+												className="group flex items-center justify-between gap-4 bg-surface/70 p-4"
+											>
+												<div>
+													<div className="text-sm text-text">{c.name}</div>
+													<div className="font-mono text-[11px] text-muted mt-1">
+														{c.date}
+													</div>
+												</div>
+												<span className="font-mono text-muted transition-all duration-300 group-hover:text-signal group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+													↗
+												</span>
+											</a>
 										</div>
-										<span className="font-mono text-muted transition-all duration-300 group-hover:text-signal group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-											↗
-										</span>
-									</a>
+									</div>
 								</Reveal>
 							))}
 						</ul>

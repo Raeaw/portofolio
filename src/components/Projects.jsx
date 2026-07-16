@@ -66,52 +66,62 @@ export default function Projects() {
 
 				<div className="grid md:grid-cols-2 gap-6">
 					{projects.map((p, idx) => (
-						<Reveal key={p.name} delay={idx * 90}>
-							<a
-								href={p.link}
-								target="_blank"
-								rel="noreferrer"
-								className="glow-border group border border-line rounded-lg bg-surface/70 p-6 flex flex-col h-full transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30"
-							>
-								<div className="flex items-center justify-between mb-1">
-									<h3 className="text-text font-semibold text-lg">{p.name}</h3>
-									<span className="font-mono text-muted transition-all duration-300 group-hover:text-signal group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-										↗
-									</span>
-								</div>
-								<p className="font-mono text-xs text-route mb-4">
-									{p.subtitle}
-								</p>
-								<ul className="space-y-2 mb-5 flex-1">
-									{p.points.map((pt, i) => (
-										<li key={i} className="text-sm text-muted flex gap-3">
-											<span className="text-line font-mono select-none">·</span>
-											<span>{pt}</span>
-										</li>
-									))}
-								</ul>
-								<div className="flex flex-wrap gap-2 mb-4">
-									{p.stack.map((s) => (
-										<span
-											key={s}
-											className="font-mono text-[10px] px-2 py-1 border border-line rounded text-muted bg-surface2 transition-colors duration-300 group-hover:border-route/40 group-hover:text-text"
-										>
-											{s}
-										</span>
-									))}
-								</div>
-								{p.secondaryLink && (
+						<Reveal key={p.name} delay={idx * 90} className="h-full">
+							<div className="glow-frame h-full transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/30">
+								{/* opaque backing — stops the glowing frame's background from
+                    bleeding through the card's semi-transparent bg-surface/70 */}
+								<div className="rounded-[7px] overflow-hidden bg-ink h-full">
 									<a
-										href={p.secondaryLink}
+										href={p.link}
 										target="_blank"
 										rel="noreferrer"
-										onClick={(e) => e.stopPropagation()}
-										className="font-mono text-[11px] text-muted hover:text-signal transition-colors self-start"
+										className="group bg-surface/70 p-6 flex flex-col h-full"
 									>
-										source code →
+										<div className="flex items-center justify-between mb-1">
+											<h3 className="text-text font-semibold text-lg">
+												{p.name}
+											</h3>
+											<span className="font-mono text-muted transition-all duration-300 group-hover:text-signal group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+												↗
+											</span>
+										</div>
+										<p className="font-mono text-xs text-route mb-4">
+											{p.subtitle}
+										</p>
+										<ul className="space-y-2 mb-5 flex-1">
+											{p.points.map((pt, i) => (
+												<li key={i} className="text-sm text-muted flex gap-3">
+													<span className="text-line font-mono select-none">
+														·
+													</span>
+													<span>{pt}</span>
+												</li>
+											))}
+										</ul>
+										<div className="flex flex-wrap gap-2 mb-4">
+											{p.stack.map((s) => (
+												<span
+													key={s}
+													className="font-mono text-[10px] px-2 py-1 border border-line rounded text-muted bg-surface2 transition-colors duration-300 group-hover:border-route/40 group-hover:text-text"
+												>
+													{s}
+												</span>
+											))}
+										</div>
+										{p.secondaryLink && (
+											<a
+												href={p.secondaryLink}
+												target="_blank"
+												rel="noreferrer"
+												onClick={(e) => e.stopPropagation()}
+												className="font-mono text-[11px] text-muted hover:text-signal transition-colors self-start"
+											>
+												source code →
+											</a>
+										)}
 									</a>
-								)}
-							</a>
+								</div>
+							</div>
 						</Reveal>
 					))}
 				</div>

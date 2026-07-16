@@ -169,10 +169,21 @@ html.custom-cursor-active * {
 }
 
 /* ────────────────────────────────────────────────────────────────
-   Animated rotating-gradient border for cards/buttons on hover.
-   Feature-detected via @supports so browsers without mask-composite
-   support simply keep the existing static border-color hover — no
-   broken/solid overlay fallback risk.
+   Animated rotating-gradient border for cards, v2 — the "padding as
+   border" technique. No mask-composite anywhere, so no reliance on
+   spotty cross-browser/cross-layout mask support. Structure required:
+
+     <div class="glow-frame">     <!-- padding = border thickness -->
+       <a class="... rounded-[7px] h-full ...">   <!-- actual content -->
+         ...
+       </a>
+     </div>
+
+   At rest, .glow-frame's own background is a flat color that matches
+   the existing `border-line` token, so it reads as a normal 1.5px
+   border. On hover, that background swaps to a rotating conic-gradient.
+   Because :hover on a parent also triggers whenever any descendant is
+   hovered, hovering anywhere on the inner card lights up the frame.
    ──────────────────────────────────────────────────────────────── */
 @property --border-angle {
 	syntax: "<angle>";
@@ -180,44 +191,32 @@ html.custom-cursor-active * {
 	inherits: false;
 }
 
-@supports (mask-composite: exclude) or (-webkit-mask-composite: xor) {
-	.glow-border {
-		position: relative;
-		isolation: isolate;
-	}
+.glow-frame {
+	position: relative;
+	padding: 1.5px;
+	border-radius: 0.5rem; /* matches Tailwind's rounded-lg (8px) */
+	background: #2b3440; /* matches the `border-line` design token */
+	transition:
+		box-shadow 0.3s ease,
+		transform 0.3s ease;
+}
 
-	.glow-border::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		z-index: 5;
-		border-radius: inherit;
-		padding: 1.5px;
-		pointer-events: none;
-		background: conic-gradient(
-			from var(--border-angle, 0deg),
-			transparent 0deg,
-			transparent 40deg,
-			rgba(240, 180, 41, 0.95) 90deg,
-			rgba(94, 234, 212, 0.85) 150deg,
-			transparent 210deg,
-			transparent 360deg
-		);
-		-webkit-mask:
-			linear-gradient(#000 0 0) content-box,
-			linear-gradient(#000 0 0);
-		-webkit-mask-composite: xor;
-		mask-composite: exclude;
-		opacity: 0;
-		transition: opacity 0.35s ease;
-		animation: spin-border 2.6s linear infinite;
-		animation-play-state: paused;
-	}
+.glow-frame > * {
+	display: block;
+	border-radius: 7px; /* slightly less than the frame's radius, so the ring peeks through */
+}
 
-	.glow-border:hover::after {
-		opacity: 1;
-		animation-play-state: running;
-	}
+.glow-frame:hover {
+	background: conic-gradient(
+		from var(--border-angle, 0deg),
+		transparent 0deg,
+		transparent 40deg,
+		rgba(240, 180, 41, 0.95) 90deg,
+		rgba(94, 234, 212, 0.85) 150deg,
+		transparent 210deg,
+		transparent 360deg
+	);
+	animation: spin-border 2.6s linear infinite;
 }
 
 @keyframes spin-border {
@@ -227,7 +226,7 @@ html.custom-cursor-active * {
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.glow-border::after {
-		animation: none !important;
+	.glow-frame:hover {
+		animation: none;
 	}
 }
